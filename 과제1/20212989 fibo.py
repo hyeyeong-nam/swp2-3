@@ -10,7 +10,6 @@ def iterfibo(n):
     cnt = 0
     a = 1
     b = 1
-    c = 0
     while True:
         if n == 0:
             return 0
