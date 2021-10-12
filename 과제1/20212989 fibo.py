@@ -11,16 +11,14 @@ def iterfibo(n):
     a = 1
     b = 1
     c = 0
-    d = 0
     while True:
-        if cnt <= n-3:
-            c = a
-            a = a + b
-            b = c
+        if n == 0:
+            return 0
+        elif cnt <= n-2:
+            a, b = b, a+b
             cnt += 1
         else:
-            d = a
-            return d
+            return a
 
 
 
@@ -37,3 +35,4 @@ while True:
     fibonumber = fibo(nbr)
     ts = time.time() - ts
     print("Fibo(%d)=%d, time %.6f" %(nbr, fibonumber, ts))
+
