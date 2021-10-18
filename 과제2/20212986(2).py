@@ -10,10 +10,10 @@ def seqsearch(nbrs, target):
 
 
 def recbinsearch(L, l, u, target):
-    Mid = int((l + u) // 2)
+    Mid = (l + u) // 2
 
     if u == l:
-        if (target == L[l]) and (target == L[u]):
+        if (target == L[l]):
             return 1
     if u > l:
         if target < L[Mid]:
