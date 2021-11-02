@@ -117,9 +117,8 @@ class ScoreDB(QWidget):
         pickle.dump(self.scoredb, fH)
         fH.close()
 
-    def showScoreDB(self, Name=None):
+    def showScoreDB(self):
         sort_key = self.KeyBox.currentText()
-
         a = []
 
         for p in sorted(self.scoredb, key=lambda person: person[sort_key]):
