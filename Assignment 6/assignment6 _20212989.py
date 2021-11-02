@@ -154,7 +154,16 @@ class ScoreDB(QWidget):
 
     def findScoreDB(self):
         Name = self.Nameline.text()
-        self.showScoreDB(Name)
+        keyname = self.KeyBox.currentText()
+        a = []
+        for p in sorted(self.scoredb, key=lambda person: person[keyname]):
+            if Name == p['Name']:
+                for k in sorted(p):
+                    a.append(str(k) + ":")
+                    a.append(str(p[k]))
+                    a.append("\t")
+                a.append("\n")
+        self.ResultText.setText(''.join(a))
 
 
 
