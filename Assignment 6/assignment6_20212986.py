@@ -94,7 +94,7 @@ class ScoreDB(QWidget):
         Show.clicked.connect(self.ToShow)
 
         self.setLayout(vbox)
-        self.setGeometry(300, 300, 500, 300)
+        self.setGeometry(300, 300, 500, 250)
 
         self.show()
 
