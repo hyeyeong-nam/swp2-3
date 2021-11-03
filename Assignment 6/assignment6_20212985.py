@@ -12,7 +12,7 @@ class ScoreDB(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
-        self.dbfilename = 'assignment6.dat'
+        self.dbfilename = 'D:\git\swp2-3\Assignment 6\\assignment6.dat'
         self.scoredb = []
         self.readScoreDB()
         self.showScoreDB()
@@ -101,37 +101,53 @@ class ScoreDB(QWidget):
         delButton.clicked.connect(self.ClickedDel)
         findButton.clicked.connect(self.ClickedFind)
         incButton.clicked.connect(self.ClickedInc)
-        showButton.clicked.connect(self.showScoreDB)
+        showButton.clicked.connect(lambda:self.showScoreDB())
 
     def ClickedAdd(self):
+        try:
+            Name = self.NameEdit.text()
+            Age = int(self.AgeEdit.text())
+            Score = int(self.ScoreEdit.text())
+            self.scoredb.append({'Name':Name, 'Age':Age, 'Score':Score})
+            self.showScoreDB()
+            
+        except ValueError:
+            self.ResultEdit.setText('Please input it properly.')
         
-        Name = self.NameEdit.text()
-        Age = int(self.AgeEdit.text())
-        Score = int(self.ScoreEdit.text())
-        self.scoredb.append({'Name':Name, 'Age':Age, 'Score':Score})
-        self.showScoreDB()
+            
 
     def ClickedDel(self):
-        Name = self.NameEdit.text()
-        has_deleted = True
-        while has_deleted:
-            has_deleted = False
+        try:
+            Name = self.NameEdit.text()
+            has_deleted = True
+            while has_deleted:
+                has_deleted = False
+                for p in self.scoredb:
+                    if p['Name'] == Name:
+                        self.scoredb.remove(p)
+                        has_deleted = True
+            self.showScoreDB()
+        except ValueError:
+            self.ResultEdit.setText('Please input it properly.')
+            
+        
+    def ClickedFind(self):
+        try:
+            Name = self.NameEdit.text()
+            self.showScoreDB(Name)
+        except ValueError:
+            self.ResultEdit.setText('Please input it properly.')
+            
+    def ClickedInc(self):
+        try:
+            Name = self.NameEdit.text()
+            Amount = int(self.AmountEdit.text())
             for p in self.scoredb:
                 if p['Name'] == Name:
-                    self.scoredb.remove(p)
-                    has_deleted = True
-        self.showScoreDB()
-    def ClickedFind(self):
-        Name = self.NameEdit.text()
-        self.showScoreDB(Name)
-    
-    def ClickedInc(self):
-        Name = self.NameEdit.text()
-        Amount = int(self.AmountEdit.text())
-        for p in self.scoredb:
-            if p['Name'] == Name:
-                p['Score'] = str(int(p['Score']) + int(Amount))
-        self.showScoreDB()
+                    p['Score'] = str(int(p['Score']) + int(Amount))
+            self.showScoreDB()
+        except ValueError:
+            self.ResultEdit.setText('Please input it properly.')
 
     def closeEvent(self, event):
         self.writeScoreDB()
@@ -153,6 +169,7 @@ class ScoreDB(QWidget):
 
 
     # write the data into person db
+    
     def writeScoreDB(self):
         fH = open(self.dbfilename, 'wb')
         pickle.dump(self.scoredb, fH)
@@ -160,7 +177,6 @@ class ScoreDB(QWidget):
 
     def showScoreDB(self, Name=None):
         sort_key = self.KeyEdit.currentText()
-
         te = []
 
         for p in sorted(self.scoredb, key=lambda person: person[sort_key]):
