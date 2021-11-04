@@ -149,7 +149,7 @@ class ScoreDB(QWidget):
         Amount = self.Amountline.text()
         for p in self.scoredb:
             if p['Name'] == Name:
-                p['Score'] = str(int(p['Score']) + int(Amount))
+                p['Score'] = int(p['Score']) + int(Amount)
         self.showScoreDB()
 
     def findScoreDB(self):
