@@ -49,7 +49,33 @@ def decToRoman(numStr):
     return result
 
 def romanToDec(numStr):
-    return 'Roman to Dec'
+    try:
+        n = str(numStr)
+    except:
+        return 'Error!'
+    
+    
+    romans = [
+        (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
+         (100, 'C'),  (90, 'XC'),  (50, 'L'),  (40, 'XL'),
+          (10, 'X'),   (9, 'IX'),   (5, 'V'),   (4, 'IV'),
+           (1, 'I')
+    ]
+
+    result = 0
+    i = 0
+   
+    for value, letters in romans:
+        if len(letters) == 2:
+            while letters in n[:2]:
+                result += value
+                n = n[len(letters):]
+        else:
+            while letters in n[:1]:
+                result += value
+                n = n[len(letters):]
+   
+    return result 
 
 functionMap = [
     ('factorial (!)', factorial),
