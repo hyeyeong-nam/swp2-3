@@ -64,14 +64,9 @@ def romanToDec(numStr):
             (1, 'I')
         ]
         for key,value in romans:
-                if len(value) == 2:
-                    while value in n[:2]:
-                        result += key
-                        n = n[len(value):]
-                else:
-                    while value in n[:1]:
-                        result += key
-                        n = n[len(value):]
+            while value in n[:len(value)]:
+                result += key
+                n = n[len(value):]
     except:
         return 'Error!'
     return result
