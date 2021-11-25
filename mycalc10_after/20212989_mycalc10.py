@@ -191,6 +191,11 @@ class Calculator(QWidget):
             n = self.display.text()
             value = functionMap[functionList.index(key)][1](n)
             self.display.setText(str(value))
+        elif self.display.text() == '0' and key != '.':
+            if key not in operatorList:
+                self.display.setText(key)
+            else:
+                self.display.setText('')
         else:
             self.display.setText(self.display.text() + key)
 
