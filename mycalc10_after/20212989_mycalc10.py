@@ -172,9 +172,11 @@ class Calculator(QWidget):
 
         button = self.sender()
         key = button.text()
-
         if key == '=':
             try:
+                a = self.display.text()
+                if len(a) > 1 and a[len(a) - 1] in operatorList:
+                    self.display.setText(a[:len(a) - 1])
                 result = str(eval(self.display.text()))
             except:
                 result = 'Error!'
@@ -196,8 +198,21 @@ class Calculator(QWidget):
                 self.display.setText(key)
             else:
                 self.display.setText('')
+        elif key in operatorList:
+            a = self.display.text()
+            if len(a)>1 and a[len(a)-1] in operatorList:
+                self.display.setText(a[:len(a)-1]+key)
+            elif len(a)>1 and a[len(a)-1] == '.':
+                self.display.setText(a[:len(a)-1]+key)
+            else:
+                self.display.setText(self.display.text() + key)
         else:
-            self.display.setText(self.display.text() + key)
+            a = self.display.text()
+            if len(a) > 2 and a[len(a) - 1] =='0' and key in numPadList and key != '.' and a[len(a) - 2] in operatorList:
+                self.display.setText(a[:len(a) - 1]+key)
+            else:
+                self.display.setText(self.display.text() + key)
+
 
 
 if __name__ == '__main__':
