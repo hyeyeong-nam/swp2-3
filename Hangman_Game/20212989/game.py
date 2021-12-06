@@ -114,11 +114,11 @@ class HangmanGame(QWidget):
             return self.message.setText('One character at a time!')
 
         # 이미 사용한 글자인지를 판단하고, 아닌 경우 메시지 출력, 리턴
+        success = self.guess.guess(guessedChar)
         if guessedChar in self.guess.guessedChars:
             self.message.setText('You already guessed \"' + guessedChar + '\"')
 
-        success = self.guess.guess(guessedChar)
-        if success == False:
+        elif success == False:
             # 남아 있는 목숨을 1 만큼 감소
             # 메시지 출력
             self.hangman.decreaseLife()
